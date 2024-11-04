@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Envelope Animation</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 100vh;
+            background-image: url('https://jwahir.com/wp-content/uploads/2020/08/%D8%B5%D9%88%D8%B1-%D8%B9%D9%8A%D8%AF-%D9%85%D9%8A%D9%84%D8%A7%D8%AF-%D8%B3%D8%B9%D9%8A%D8%AF-03.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .envelope {
+            position: relative;
+            width: 400px;
+            height: 240px;
+            background: linear-gradient(to bottom, #fff 50%, #ffffe0 50%);
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .envelope:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, #fff 50%, #ffffe0 50%);
+            clip-path: polygon(0 0, 100% 0, 50% 50%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 1;
+        }
+        .envelope-text {
+            position: absolute;
+            bottom: 5px;
+            width: 100%;
+            text-align: center;
+            font-size: 24px;
+            color: black;
+            z-index: 2;
+        }
+        .paper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 360px;
+            height: 200px;
+            background: #fff;
+            border: 4px solid #555;
+            border-radius: 5px;
+            border-image: linear-gradient(to bottom, #bfa, #fed) 1;
+            transform: translate(-50%, -50%) scaleY(0);
+            transition: transform 2s ease-in-out, opacity 1s;
+            z-index: 3;
+            text-align: center;
+            line-height: 1.5;
+            font-size: 14px;
+            font-family: 'Amiri', serif;
+            color: black;
+            cursor: pointer;
+            opacity: 0;
+            padding: 10px;
+        }
+        .envelope.open .paper {
+            opacity: 1;
+            transform: translate(-50%, -115%);
+        }
+        .envelope.open .envelope-text {
+            display: none;
+        }
+        .envelope.open:after {
+            transform: rotateX(180deg);
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="envelope" onclick="openEnvelope()">
+        <div class="envelope-text">اضغط هنا</div>
+        <div class="paper">
+            من: وسام<br>
+            إلى: أستاذة اللغة العربية<br>
+            في تاريخ: 2024/11/5<br><br>
+            "إلى معلمتي العزيزة،<br><br>
+             في هذا اليوم المميز، أود أن أعبّر لكِ عن مدى امتناني وتقديري لما تبذلينه من جهد في تعليمنا. لقد كنتِ دائمًا مصدر إلهام ودعم لي. كل عام وأنتِ بألف خير، وأتمنى لكِ عيد ميلاد سعيد مليء بالسعادة والفرح. شكرًا لكِ على كل شيء."
+
+آمل أن تكون هذه التهنئة مناسبة! 🎉
+        </div>
+    </div>
+
+    <audio id="birthdaySong" src="https://www.soundjay.com/free-music/happy-birthday.mp3" loop></audio>
+
+    <script>
+        function openEnvelope() {
+            const envelope = document.querySelector('.envelope');
+            envelope.classList.toggle('open');
+            const birthdaySong = document.getElementById('birthdaySong');
+            if (envelope.classList.contains('open')) {
+                birthdaySong.play();
+            } else {
+                birthdaySong.pause();
+                birthdaySong.currentTime = 0;
+            }
+        }
+
+        // Autoplay the audio when the page loads
+        window.addEventListener('load', () => {
+            const birthdaySong = document.getElementById('birthdaySong');
+            birthdaySong.play().catch(error => {
+                console.warn('Autoplay prevented:', error);
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
